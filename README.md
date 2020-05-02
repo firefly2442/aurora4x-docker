@@ -21,9 +21,15 @@ docker run -p 6080:80 --name=aurora4x-docker -v /dev/shm:/dev/shm firefly2442/au
 
 ## Running
 
-Open `http://localhost:6080`
+Open [http://localhost:6080](http://localhost:6080)
 
 Double-click the `Aurora` icon on the desktop.
+
+## Security
+
+Depending on where you are running this and/or your network settings, this container
+could be visible to the outside world.  Be careful that this not be used as
+an attack vector onto your systems.
 
 ## Why Docker
 
