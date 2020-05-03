@@ -45,6 +45,8 @@ over to the container during the build.  This prevents constantly hitting the
 pentarch.org servers and sucking up bandwidth.
 * Get into the running container with `docker exec -it aurora4x-docker /bin/bash` or
 just open up the `LXTerminal` app.
+* Use `docker system prune` since the intermediate layers, particularly in the builder
+are huge.
 
 ## Support
 
