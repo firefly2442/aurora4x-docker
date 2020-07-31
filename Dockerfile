@@ -77,6 +77,7 @@ RUN sudo apt update && \
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu preview-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
     sudo apt update && \
+    sudo apt upgrade -y && \
     sudo apt install -y --no-install-recommends mono-complete wget fonts-cantarell p7zip-full p7zip-rar && \
     rm -rf /var/lib/apt/lists/*
 
@@ -88,13 +89,6 @@ COPY --from=builder /mono/mcs/class/lib/net_4_x-linux/System.Windows.Forms.dll /
 COPY --from=builder /libgdiplus/src/.libs/libgdiplus.so.0 /root/libgdiplus.so.0
 COPY --from=builder /sqlite/bin/2013/Release/bin/SQLite.Interop.dll /root/SQLite.Interop.dll
 COPY --from=builder /sqlite/bin/2013/Release/bin/libSQLite.Interop.so /root/libSQLite.Interop.so
-
-# TODO: what else can be removed to lighten the size?
-# use wajig to find large packages that are left dangling that could be removed to save space
-# $ apt update && apt install wajig
-# $ wajig large
-RUN sudo apt purge -y firefox chromium-browser && \
-    sudo apt autoremove -y
 
 # copy any Aurora files you might already have over, prevents needing to download them again
 COPY *.rar /root/
@@ -114,6 +108,13 @@ RUN wget -nc http://www.pentarch.org/steve/Aurora1110.rar
 RUN 7z x Aurora151Full.rar && \
     7z x Aurora1110.rar -y && \
     rm *.rar
+
+# TODO: what else can be removed to lighten the size?
+# use wajig to find large packages that are left dangling that could be removed to save space
+# $ apt update && apt install wajig
+# $ wajig large
+RUN sudo apt purge -y firefox google-chrome-stable wget p7zip-full p7zip-rar && \
+    sudo apt autoremove -y
 
 # setup executable launcher
 RUN mkdir /root/Desktop && \
