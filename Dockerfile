@@ -104,18 +104,15 @@ COPY *.rar /root/
 # https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
 RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
 # patches to apply
-RUN wget -nc http://www.pentarch.org/steve/Aurora190.rar
-RUN wget -nc http://www.pentarch.org/steve/Aurora193.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora1110.rar
 
 # md5sum *.rar
 # 19113d9b9aef38858b8ca03a423be747  Aurora151Full.rar
-# f23c7feb367ac0a7952292096ae58b0b  Aurora190.rar
-# 0e7e7cc07e633eedc703783bfa9dfbfb  Aurora193.rar
+# 82b0264bcef8d233a2abef5f05ff0f8c  Aurora1110.rar
 
 # extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora151Full.rar && \
-    7z x Aurora190.rar -y && \
-    7z x Aurora193.rar -y && \
+    7z x Aurora1110.rar -y && \
     rm *.rar
 
 # setup executable launcher
