@@ -11,7 +11,7 @@ RUN apt update && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu preview-bionic main" | tee /etc/apt/sources.list.d/mono-official-preview.list && \
     apt update && \
-    apt install -y --no-install-recommends git-core unzip \
+    apt install -y --no-install-recommends git-core unzip p7zip-full p7zip-rar wget \
     # below are for compiling libgdiplus
     libgif-dev autoconf libtool automake build-essential gettext libglib2.0-dev libcairo2-dev libtiff-dev libexif-dev \
     # below are for compiling mono
@@ -58,7 +58,28 @@ WORKDIR ./sqlite/Setup/
 RUN chmod +x compile-interop-assembly-release.sh && \
     ./compile-interop-assembly-release.sh
 
-WORKDIR ../../
+RUN mkdir -p /aurora/
+
+WORKDIR ../../aurora/
+
+# copy any Aurora files you might already have over, prevents needing to download them again
+COPY *.rar /aurora/
+
+# download Aurora4x C#
+# -nc prevents the file from being re-downloaded if it was copied over
+# https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
+RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
+# patches to apply
+RUN wget -nc http://www.pentarch.org/steve/Aurora1110.rar
+
+# md5sum *.rar
+# 19113d9b9aef38858b8ca03a423be747  Aurora151Full.rar
+# 82b0264bcef8d233a2abef5f05ff0f8c  Aurora1110.rar
+
+# extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
+RUN 7z x Aurora151Full.rar && \
+    7z x Aurora1110.rar -y && \
+    rm *.rar
 
 # for debugging purposes, so we can start the container and examine the build results
 #CMD tail -f /dev/null
@@ -77,11 +98,10 @@ RUN sudo apt update && \
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu preview-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
     sudo apt update && \
-    sudo apt upgrade -y && \
-    sudo apt install -y --no-install-recommends mono-complete wget fonts-cantarell p7zip-full p7zip-rar && \
+    sudo apt install -y --no-install-recommends mono-complete fonts-cantarell && \
     rm -rf /var/lib/apt/lists/*
 
-# TODO: copy over library files from previous stage
+# copy over library files from previous stage
 # helps find the files we're interested in by recursively searching the builder
 # find . -name "System.Drawing.dll"
 COPY --from=builder /mono/mcs/class/lib/build-linux/System.Drawing.dll /root/System.Drawing.dll
@@ -89,32 +109,8 @@ COPY --from=builder /mono/mcs/class/lib/net_4_x-linux/System.Windows.Forms.dll /
 COPY --from=builder /libgdiplus/src/.libs/libgdiplus.so.0 /root/libgdiplus.so.0
 COPY --from=builder /sqlite/bin/2013/Release/bin/SQLite.Interop.dll /root/SQLite.Interop.dll
 COPY --from=builder /sqlite/bin/2013/Release/bin/libSQLite.Interop.so /root/libSQLite.Interop.so
-
-# copy any Aurora files you might already have over, prevents needing to download them again
-COPY *.rar /root/
-
-# download Aurora4x C#
-# -nc prevents the file from being re-downloaded if it was copied over
-# https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
-RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
-# patches to apply
-RUN wget -nc http://www.pentarch.org/steve/Aurora1110.rar
-
-# md5sum *.rar
-# 19113d9b9aef38858b8ca03a423be747  Aurora151Full.rar
-# 82b0264bcef8d233a2abef5f05ff0f8c  Aurora1110.rar
-
-# extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
-RUN 7z x Aurora151Full.rar && \
-    7z x Aurora1110.rar -y && \
-    rm *.rar
-
-# TODO: what else can be removed to lighten the size?
-# use wajig to find large packages that are left dangling that could be removed to save space
-# $ apt update && apt install wajig
-# $ wajig large
-RUN sudo apt purge -y firefox google-chrome-stable wget p7zip-full p7zip-rar && \
-    sudo apt autoremove -y
+# copy over the Aurora files
+COPY --from=builder /aurora/ /root/
 
 # setup executable launcher
 RUN mkdir /root/Desktop && \

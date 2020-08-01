@@ -8,22 +8,30 @@ A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible
 
 ## Install Prebuilt Docker Image
 
-TODO: hub.docker.com...
+```shell
+docker pull firefly2442/aurora4x-docker:latest
+```
 
 ## Building From Scratch
 
-TODO: mount `AuroraDB.db` file so it saves it across restarts
-
 ```shell
 docker build . -t firefly2442/aurora4x-docker
-docker run -p 6080:80 --name=aurora4x-docker -v /dev/shm:/dev/shm firefly2442/aurora4x-docker
 ```
 
 ## Running
 
+Use the most recent patch and find the `AuroraDB.db` file.  Place this in the sourcecode folder
+or wherever you're wanting to start it up.  Change this:
+`/home/username/src/aurora4x-docker/AuroraDB.db` in the below command to the full path to
+your `AuroraDB.db` file.  This will allow saving via Docker to persist on your local disk.
+
+```shell
+docker run -p 6080:80 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /home/username/src/aurora4x-docker/AuroraDB.db:/root/AuroraDB.db firefly2442/aurora4x-docker
+```
+
 Open [http://localhost:6080](http://localhost:6080)
 
-Double-click the `Aurora` icon on the desktop.
+Double-click the `Aurora4x` icon on the desktop and then select execute.
 
 ## Security
 
@@ -47,6 +55,16 @@ pentarch.org servers and sucking up bandwidth.
 just open up the `LXTerminal` app.
 * Use `docker system prune` since the intermediate layers, particularly in the builder
 are huge.
+* Use `docker image ls` to see image sizes.
+* Use the [Dive](https://github.com/wagoodman/dive) program to help debug
+the image size, `dive firefly2442/aurora4x-docker`.
+
+## Deploying to Dockerhub
+
+```shell
+docker login
+docker push firefly2442/aurora4x-docker:latest
+```
 
 ## Support
 
