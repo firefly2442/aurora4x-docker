@@ -3,7 +3,7 @@
 # https://docs.docker.com/develop/develop-images/multistage-build/
 
 # https://hub.docker.com/_/ubuntu/
-FROM ubuntu:bionic AS builder
+FROM ubuntu:focal AS builder
 
 # https://www.mono-project.com/download/preview/
 RUN apt update && \
@@ -87,7 +87,7 @@ RUN 7z x Aurora151Full.rar && \
 # ----------------------------------
 
 # https://hub.docker.com/r/dorowu/ubuntu-desktop-lxde-vnc/
-FROM dorowu/ubuntu-desktop-lxde-vnc:latest
+FROM dorowu/ubuntu-desktop-lxde-vnc:focal
 
 # Everything is setup and run as root.
 # The 'working directory' for Docker commands and root is /root/
