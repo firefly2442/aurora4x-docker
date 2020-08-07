@@ -9,7 +9,7 @@ FROM ubuntu:focal AS builder
 RUN apt update && \
     apt install -y --no-install-recommends gnupg ca-certificates && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    echo "deb https://download.mono-project.com/repo/ubuntu preview-bionic main" | tee /etc/apt/sources.list.d/mono-official-preview.list && \
+    echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | tee /etc/apt/sources.list.d/mono-official-preview.list && \
     apt update && \
     apt install -y --no-install-recommends git-core unzip p7zip-full p7zip-rar wget \
     # below are for compiling libgdiplus
@@ -96,7 +96,7 @@ FROM dorowu/ubuntu-desktop-lxde-vnc:focal
 RUN sudo apt update && \
     sudo apt install -y --no-install-recommends gnupg ca-certificates && \
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    echo "deb https://download.mono-project.com/repo/ubuntu preview-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
+    echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
     sudo apt update && \
     sudo apt install -y --no-install-recommends mono-complete fonts-cantarell && \
     rm -rf /var/lib/apt/lists/*
