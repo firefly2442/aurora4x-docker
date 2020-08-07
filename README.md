@@ -1,5 +1,7 @@
 # aurora4x-docker
 
+![Docker Pulls](https://img.shields.io/docker/pulls/firefly2442/aurora4x-docker)
+
 A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible via a web-browser.
 
 ## Prerequisites
