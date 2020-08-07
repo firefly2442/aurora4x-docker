@@ -5,6 +5,9 @@
 # https://hub.docker.com/_/ubuntu/
 FROM ubuntu:focal AS builder
 
+# force tzdata to use UTC and don't prompt user
+ENV DEBIAN_FRONTEND=noninteractive
+
 # https://www.mono-project.com/download/preview/
 RUN apt update && \
     apt install -y --no-install-recommends gnupg ca-certificates && \
@@ -62,8 +65,14 @@ RUN mkdir -p /aurora/
 
 WORKDIR ../../aurora/
 
+# md5sum *.rar
+# 19113d9b9aef38858b8ca03a423be747  Aurora151Full.rar
+# 82b0264bcef8d233a2abef5f05ff0f8c  Aurora1110.rar
+
 # copy any Aurora files you might already have over, prevents needing to download them again
 COPY *.rar /aurora/
+# on Dockerhub, this will copy over the blank.rar file which is just a dummy to make sure
+# the build doesn't fail
 
 # download Aurora4x C#
 # -nc prevents the file from being re-downloaded if it was copied over
@@ -71,10 +80,6 @@ COPY *.rar /aurora/
 RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
 # patches to apply
 RUN wget -nc http://www.pentarch.org/steve/Aurora1110.rar
-
-# md5sum *.rar
-# 19113d9b9aef38858b8ca03a423be747  Aurora151Full.rar
-# 82b0264bcef8d233a2abef5f05ff0f8c  Aurora1110.rar
 
 # extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora151Full.rar && \

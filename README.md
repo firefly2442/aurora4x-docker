@@ -12,10 +12,13 @@ A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible
 docker pull firefly2442/aurora4x-docker:latest
 ```
 
+Images on [Dockerhub](https://hub.docker.com/r/firefly2442/aurora4x-docker) are
+tagged with the Aurora4x C# version number.  Or use `latest` to grab the latest and greatest.
+
 ## Building From Scratch
 
 ```shell
-docker build . -t firefly2442/aurora4x-docker
+docker build . -t firefly2442/aurora4x-docker:latest -t firefly2442/aurora4x-docker:v1.11.0
 ```
 
 ## Running
@@ -64,7 +67,10 @@ the image size, `dive firefly2442/aurora4x-docker`.
 ```shell
 docker login
 docker push firefly2442/aurora4x-docker:latest
+docker push firefly2442/aurora4x-docker:v1.11.0
 ```
+
+Or use the automated build.
 
 ## Support
 
