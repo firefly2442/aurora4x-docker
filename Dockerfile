@@ -50,8 +50,8 @@ RUN make -j 4
 WORKDIR ../
 
 # http://blog.wezeku.com/2016/10/09/using-system-data-sqlite-under-linux-and-mono/
-COPY sqlite-netFx-source-1.0.112.0.zip /
-RUN unzip sqlite-netFx-source-1.0.112.0.zip -d ./sqlite/
+COPY sqlite-netFx-source-1.0.113.0.zip /
+RUN unzip sqlite-netFx-source-1.0.113.0.zip -d ./sqlite/
 
 WORKDIR ./sqlite/Setup/
 
