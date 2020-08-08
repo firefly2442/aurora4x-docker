@@ -1,6 +1,8 @@
 # aurora4x-docker
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/firefly2442/aurora4x-docker)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/firefly2442/aurora4x-docker)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/firefly2442/aurora4x-docker/latest)
 
 A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible via a web-browser.
 
@@ -20,7 +22,7 @@ tagged with the Aurora4x C# version number.  Or use `latest` to grab the latest 
 ## Building From Scratch
 
 ```shell
-docker build . -t firefly2442/aurora4x-docker:latest -t firefly2442/aurora4x-docker:v1.11.0
+docker build . -t firefly2442/aurora4x-docker:latest
 ```
 
 ## Running
@@ -69,10 +71,9 @@ the image size, `dive firefly2442/aurora4x-docker`.
 ```shell
 docker login
 docker push firefly2442/aurora4x-docker:latest
-docker push firefly2442/aurora4x-docker:v1.11.0
 ```
 
-Or use the automated build.
+Or use the automated build, takes about an hour to build.
 
 ## Support
 
