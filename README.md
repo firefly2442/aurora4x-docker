@@ -16,8 +16,7 @@ A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible
 docker pull firefly2442/aurora4x-docker:latest
 ```
 
-Images on [Dockerhub](https://hub.docker.com/r/firefly2442/aurora4x-docker) are
-tagged with the Aurora4x C# version number.  Or use `latest` to grab the latest and greatest.
+Images are hosted on [Dockerhub](https://hub.docker.com/r/firefly2442/aurora4x-docker).
 
 ## Building From Scratch
 
