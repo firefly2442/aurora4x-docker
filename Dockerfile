@@ -65,10 +65,6 @@ RUN mkdir -p /aurora/
 
 WORKDIR ../../aurora/
 
-# md5sum *.rar
-# 19113d9b9aef38858b8ca03a423be747  Aurora151Full.rar
-# 82b0264bcef8d233a2abef5f05ff0f8c  Aurora1110.rar
-
 # copy any Aurora files you might already have over, prevents needing to download them again
 COPY *.rar /aurora/
 # on Dockerhub, this will copy over the blank.rar file which is just a dummy to make sure
@@ -79,11 +75,11 @@ COPY *.rar /aurora/
 # https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
 RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
 # patches to apply
-RUN wget -nc http://www.pentarch.org/steve/Aurora1110.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora1120.rar
 
 # extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora151Full.rar && \
-    7z x Aurora1110.rar -y && \
+    7z x Aurora1120.rar -y && \
     rm *.rar
 
 # for debugging purposes, so we can start the container and examine the build results
