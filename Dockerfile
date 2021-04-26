@@ -24,7 +24,7 @@ RUN apt update && \
 
 # build libgdiplus
 # https://github.com/mono/libgdiplus
-RUN git clone --recursive -b master --single-branch --depth=1 --shallow-submodules https://github.com/mono/libgdiplus.git
+RUN git clone --recursive -b main --single-branch --depth=1 --shallow-submodules https://github.com/mono/libgdiplus.git
 WORKDIR ./libgdiplus/
 RUN ./autogen.sh && \
     make -j 4
