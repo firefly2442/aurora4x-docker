@@ -67,7 +67,8 @@ WORKDIR ../../aurora/
 
 # copy any Aurora files you might already have over, prevents needing to download them again
 COPY *.rar /aurora/
-# on Dockerhub, this will copy over the blank.rar file which is just a dummy to make sure
+COPY *.zip /aurora/
+# on Dockerhub, this will copy over the blank.{rar/zip} file which is just a dummy to make sure
 # the build doesn't fail
 
 # download Aurora4x C#
@@ -75,12 +76,12 @@ COPY *.rar /aurora/
 # https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
 RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
 # patches to apply
-RUN wget -nc http://www.pentarch.org/steve/Aurora1130.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora1130.zip
 
-# extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
+# extract Aurora4x from the .rars/.zips, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora151Full.rar && \
-    7z x Aurora1130.rar -y && \
-    rm *.rar
+    7z x Aurora1130.zip -y && \
+    rm *.rar && rm *.zip
 
 # for debugging purposes, so we can start the container and examine the build results
 #CMD tail -f /dev/null
