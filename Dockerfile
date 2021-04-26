@@ -75,11 +75,11 @@ COPY *.rar /aurora/
 # https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
 RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
 # patches to apply
-RUN wget -nc http://www.pentarch.org/steve/Aurora1120.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora1130.rar
 
 # extract Aurora4x from the .rars, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora151Full.rar && \
-    7z x Aurora1120.rar -y && \
+    7z x Aurora1130.rar -y && \
     rm *.rar
 
 # for debugging purposes, so we can start the container and examine the build results
