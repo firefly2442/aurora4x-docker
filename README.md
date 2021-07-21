@@ -1,8 +1,6 @@
 # aurora4x-docker
 
-![Docker Pulls](https://img.shields.io/docker/pulls/firefly2442/aurora4x-docker)
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/firefly2442/aurora4x-docker)
-![Docker Image Size (tag)](https://img.shields.io/docker/image-size/firefly2442/aurora4x-docker/latest)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/firefly2442/aurora4x-docker/ci/master?label=Docker%20Build)
 
 A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible via a web-browser.
 
@@ -13,15 +11,15 @@ A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible
 ## Install Prebuilt Docker Image
 
 ```shell
-docker pull firefly2442/aurora4x-docker:latest
+docker pull ghcr.io/firefly2442/aurora4x-docker:latest
 ```
 
-Images are hosted on [Dockerhub](https://hub.docker.com/r/firefly2442/aurora4x-docker).
+Images are hosted on [Github Container Registry](https://github.com/firefly2442/aurora4x-docker/pkgs/container/aurora4x-docker).
 
 ## Building From Scratch
 
 ```shell
-docker build . -t firefly2442/aurora4x-docker:latest
+docker build . -t ghcr.io/firefly2442/aurora4x-docker:latest
 ```
 
 ## Running
@@ -32,7 +30,7 @@ or wherever you're wanting to start it up.  Change this:
 your `AuroraDB.db` file.  This will allow saving via Docker to persist on your local disk.
 
 ```shell
-docker run -p 6080:80 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /home/username/src/aurora4x-docker/AuroraDB.db:/root/AuroraDB.db firefly2442/aurora4x-docker
+docker run -p 6080:80 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /home/username/src/aurora4x-docker/AuroraDB.db:/root/AuroraDB.db ghcr.io/firefly2442/aurora4x-docker
 ```
 
 Open [http://localhost:6080](http://localhost:6080)
@@ -63,16 +61,7 @@ just open up the `LXTerminal` app.
 are huge.
 * Use `docker image ls` to see image sizes.
 * Use the [Dive](https://github.com/wagoodman/dive) program to help debug
-the image size, `dive firefly2442/aurora4x-docker`.
-
-## Deploying to Dockerhub
-
-```shell
-docker login
-docker push firefly2442/aurora4x-docker:latest
-```
-
-Or use the automated build, takes about an hour to build.
+the image size, `dive ghcr.io/firefly2442/aurora4x-docker`.
 
 ## Support
 
