@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  login:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       -
@@ -14,18 +14,18 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push docker
         id: docker_build
         # https://github.com/docker/build-push-action
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: firefly2442/aurora4x-docker:latest
+          tags: ghcr.io/firefly2442/aurora4x-docker:latest
           # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md
-          cache-from: type=registry,ref=firefly2442/aurora4x-docker:latest
+          cache-from: type=registry,ref=ghcr.io/firefly2442/aurora4x-docker:latest
           cache-to: type=inline
       -
         name: Image digest
