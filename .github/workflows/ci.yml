@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        # https://github.com/docker/build-push-action
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: firefly2442/aurora4x-docker:latest
+          # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md
+          cache-from: type=registry,ref=firefly2442/aurora4x-docker:latest
+          cache-to: type=inline
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

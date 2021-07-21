@@ -53,8 +53,8 @@ RUN make -j 4
 WORKDIR ../
 
 # http://blog.wezeku.com/2016/10/09/using-system-data-sqlite-under-linux-and-mono/
-COPY sqlite-netFx-source-1.0.113.0.zip /
-RUN unzip sqlite-netFx-source-1.0.113.0.zip -d ./sqlite/
+COPY sqlite-netFx-source-1.0.114.0.zip /
+RUN unzip sqlite-netFx-source-1.0.114.0.zip -d ./sqlite/
 
 WORKDIR ./sqlite/Setup/
 
@@ -74,13 +74,10 @@ COPY *.zip /aurora/
 # download Aurora4x C#
 # -nc prevents the file from being re-downloaded if it was copied over
 # https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
-RUN wget -nc http://www.pentarch.org/steve/Aurora151Full.rar
-# patches to apply
-RUN wget -nc http://www.pentarch.org/steve/Aurora1130.zip
+RUN wget -nc http://www.pentarch.org/steve/Aurora1130Full.rar
 
 # extract Aurora4x from the .rars/.zips, -y option accepts overwrites of files from the patches
-RUN 7z x Aurora151Full.rar && \
-    7z x Aurora1130.zip -y && \
+RUN 7z x Aurora1130Full.rar && \
     rm *.rar && rm *.zip
 
 # for debugging purposes, so we can start the container and examine the build results
