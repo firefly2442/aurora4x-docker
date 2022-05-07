@@ -20,7 +20,7 @@ jobs:
         name: Build and push docker
         id: docker_build
         # https://github.com/docker/build-push-action
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: ghcr.io/firefly2442/aurora4x-docker:latest
