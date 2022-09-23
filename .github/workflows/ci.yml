@@ -27,6 +27,15 @@ jobs:
           # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md
           cache-from: type=registry,ref=ghcr.io/firefly2442/aurora4x-docker:latest
           cache-to: type=inline
-      -
-        name: Image digest
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ghcr.io/firefly2442/aurora4x-docker:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
