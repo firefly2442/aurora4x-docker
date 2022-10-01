@@ -105,6 +105,8 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo ap
     echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
     sudo apt update && \
     sudo apt install -y --no-install-recommends mono-complete fonts-cantarell && \
+    sudo apt upgrade -y && \
+    sudo apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # copy over library files from previous stage
