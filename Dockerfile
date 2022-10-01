@@ -94,7 +94,8 @@ FROM dorowu/ubuntu-desktop-lxde-vnc:focal
 # The 'working directory' for Docker commands and root is /root/
 
 # https://www.mono-project.com/download/preview/
-RUN sudo apt update && \
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+    sudo apt update && \
     sudo apt install -y --no-install-recommends gnupg ca-certificates && \
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
