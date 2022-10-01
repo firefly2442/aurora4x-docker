@@ -62,6 +62,8 @@ are huge.
 * Use `docker image ls` to see image sizes.
 * Use the [Dive](https://github.com/wagoodman/dive) program to help debug
 the image size, `dive ghcr.io/firefly2442/aurora4x-docker`.
+* Use [Trivy](https://github.com/aquasecurity/trivy) for manual image vulnerability scanning,
+e.g. `trivy image --ignore-unfixed ghcr.io/firefly2442/aurora4x-docker:latest`
 
 ## Support
 
