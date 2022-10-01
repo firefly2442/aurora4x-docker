@@ -40,6 +40,8 @@ WORKDIR ../
 #     git remote update && \
 #     git cherry-pick d9ecab07bb6558a1c8da9a2d71a55ebd57c321c6
 
+# https://stackoverflow.com/questions/12535637/updating-git-submodule-fails
+RUN git config --global url."http://github".insteadOf git://github
 RUN git clone --recursive -b aurorafixes --single-branch --depth=1 --shallow-submodules https://github.com/cpw/mono.git
 
 WORKDIR ./mono/
