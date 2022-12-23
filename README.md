@@ -1,6 +1,6 @@
 # aurora4x-docker
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/firefly2442/aurora4x-docker/ci/master?label=Docker%20Build)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/firefly2442/aurora4x-docker/ci.yml?branch=master)
 
 A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible via a web-browser.
 
