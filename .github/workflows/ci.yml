@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  schedule:
+    # run weekly on Mondays
+    - cron: "0 13 * * 1"
 
 jobs:
   build-deploy:
