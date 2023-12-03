@@ -77,13 +77,13 @@ COPY *.zip /aurora/
 # -nc prevents the file from being re-downloaded if it was copied over
 # https://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget
 RUN wget -nc http://www.pentarch.org/steve/Aurora1130Full.rar
-# this is named as 2.2.0 but it actually has the 2.2.1 patch applied
-# https://aurora2.pentarch.org/index.php?topic=13338.0
-RUN wget -nc http://www.pentarch.org/steve/Aurora220.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora230.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora231.rar
 
 # extract Aurora4x from the .rars/.zips, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora1130Full.rar -y && \
-    7z x Aurora220.rar -y && \
+    7z x Aurora230.rar -y && \
+    7z x Aurora231.rar -y && \
     rm *.rar && rm *.zip
 
 # for debugging purposes, so we can start the container and examine the build results
