@@ -30,7 +30,7 @@ or wherever you're wanting to start it up.  Change this:
 your `AuroraDB.db` file.  This will allow saving via Docker to persist on your local disk.
 
 ```shell
-docker run -p 6080:80 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /home/username/src/aurora4x-docker/AuroraDB.db:/root/AuroraDB.db ghcr.io/firefly2442/aurora4x-docker
+docker run -p 6080:3000 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /home/username/src/aurora4x-docker/AuroraDB.db:/root/AuroraDB.db ghcr.io/firefly2442/aurora4x-docker
 ```
 
 Open [http://localhost:6080](http://localhost:6080)

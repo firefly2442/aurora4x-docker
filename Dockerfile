@@ -91,16 +91,14 @@ RUN 7z x Aurora1130Full.rar -y && \
 
 # ----------------------------------
 
-# https://hub.docker.com/r/dorowu/ubuntu-desktop-lxde-vnc/
-FROM dorowu/ubuntu-desktop-lxde-vnc:focal
-
-# Everything is setup and run as root.
-# The 'working directory' for Docker commands and root is /root/
+# https://github.com/linuxserver/docker-webtop
+FROM lscr.io/linuxserver/webtop:ubuntu-xfce
 
 # https://www.mono-project.com/download/preview/
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+RUN apt update && \
+    apt install -y --no-install-recommends wget gnupg ca-certificates fonts-cantarell && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
     sudo apt update && \
-    sudo apt install -y --no-install-recommends gnupg ca-certificates && \
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu preview-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-preview.list && \
     sudo apt update && \
@@ -112,16 +110,17 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo ap
 # copy over library files from previous stage
 # helps find the files we're interested in by recursively searching the builder
 # find . -name "System.Drawing.dll"
-COPY --from=builder /mono/mcs/class/lib/build-linux/System.Drawing.dll /root/System.Drawing.dll
-COPY --from=builder /mono/mcs/class/lib/net_4_x-linux/System.Windows.Forms.dll /root/System.Windows.Forms.dll
-COPY --from=builder /libgdiplus/src/.libs/libgdiplus.so.0 /root/libgdiplus.so.0
-COPY --from=builder /sqlite/bin/2013/Release/bin/SQLite.Interop.dll /root/SQLite.Interop.dll
-COPY --from=builder /sqlite/bin/2013/Release/bin/libSQLite.Interop.so /root/libSQLite.Interop.so
+COPY --from=builder /mono/mcs/class/lib/build-linux/System.Drawing.dll /config/System.Drawing.dll
+COPY --from=builder /mono/mcs/class/lib/net_4_x-linux/System.Windows.Forms.dll /config/System.Windows.Forms.dll
+COPY --from=builder /libgdiplus/src/.libs/libgdiplus.so.0 /config/libgdiplus.so.0
+COPY --from=builder /sqlite/bin/2013/Release/bin/SQLite.Interop.dll /config/SQLite.Interop.dll
+COPY --from=builder /sqlite/bin/2013/Release/bin/libSQLite.Interop.so /config/libSQLite.Interop.so
 # copy over the Aurora files
-COPY --from=builder /aurora/ /root/
+COPY --from=builder /aurora/ /config/
 
 # setup executable launcher
-RUN mkdir /root/Desktop && \
-    echo "FONT_NAME=\"Cantarell\" FONT_SIZE=7.5 SCALEHACKX=1.0225 SCALEHACKY=1.01 LC_ALL=C MONO_IOMAP=all mono Aurora.exe" > /root/Aurora.sh && \
-    chmod +x /root/Aurora.sh
-COPY Aurora.desktop /root/Desktop/Aurora.desktop
+RUN mkdir /config/Desktop && \
+    echo "FONT_NAME=\"Cantarell\" FONT_SIZE=7.5 SCALEHACKX=1.0225 SCALEHACKY=1.01 LC_ALL=C MONO_IOMAP=all mono Aurora.exe" > /config/Aurora.sh && \
+    chmod +x /config/Aurora.sh && \
+    chown abc /config/Aurora.sh
+COPY Aurora.desktop /config/Desktop/Aurora.desktop

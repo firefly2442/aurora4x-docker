@@ -3,5 +3,5 @@ Name=Aurora4x
 Type=Application
 Comment=Aurora4x
 Categories=Application
-Exec=/root/Aurora.sh
-Terminal=false
+Exec=/config/Aurora.sh
+Terminal=true
