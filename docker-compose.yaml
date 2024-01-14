@@ -11,6 +11,6 @@ services:
           - 6443:3001 # HTTPS
         environment:
           CUSTOM-USER: avalon 
-          PASSWORD: 2e4MC4kuR3XUyTjXenHt7Y6UfXkq2Tet # Basic auth password
+          PASSWORD: changeme # Basic auth password
           TITLE: Aurora4X Web
         image: ghcr.io/firefly2442/aurora4x-docker
