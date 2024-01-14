@@ -4,12 +4,13 @@ services:
         container_name: ${COMPOSE_PROJECT_NAME}_game
         volumes:
             - /dev/shm:/dev/shm
-            - /volume1/aurora4x/${saveslot}/AuroraDB.db:/root/AuroraDB.db # use variable saveslot to change active save
+            - /volume1/aurora4x/saves/${saveslot}/AuroraDB.db:/root/AuroraDB.db # use variable saveslot to change active save
+            - /volume1/aurora4x/config:/config
         ports:
           - 6000:3000 # HTTP
           - 6443:3001 # HTTPS
         environment:
           custom-user: avalon 
-          password: changeme # Basic auth password
+          password: 2e4MC4kuR3XUyTjXenHt7Y6UfXkq2Tet # Basic auth password
           title: Aurora4X Web
         image: ghcr.io/firefly2442/aurora4x-docker
