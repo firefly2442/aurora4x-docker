@@ -79,11 +79,15 @@ COPY *.zip /aurora/
 RUN wget -nc http://www.pentarch.org/steve/Aurora1130Full.rar
 RUN wget -nc http://www.pentarch.org/steve/Aurora230.rar
 RUN wget -nc http://www.pentarch.org/steve/Aurora231.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora240.rar
+RUN wget -nc http://www.pentarch.org/steve/Aurora250.rar
 
 # extract Aurora4x from the .rars/.zips, -y option accepts overwrites of files from the patches
 RUN 7z x Aurora1130Full.rar -y && \
     7z x Aurora230.rar -y && \
     7z x Aurora231.rar -y && \
+    7z x Aurora240.rar -y && \
+    7z x Aurora250.rar -y && \
     rm *.rar && rm *.zip
 
 # for debugging purposes, so we can start the container and examine the build results
