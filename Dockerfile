@@ -122,5 +122,6 @@ COPY --from=builder /aurora/ /config/
 RUN mkdir /config/Desktop && \
     echo "FONT_NAME=\"Cantarell\" FONT_SIZE=7.5 SCALEHACKX=1.0225 SCALEHACKY=1.01 LC_ALL=C MONO_IOMAP=all mono Aurora.exe" > /config/Aurora.sh && \
     chmod +x /config/Aurora.sh && \
-    chown abc /config/Aurora.sh
+    chown abc /config/Aurora.sh && \
+    chmod /config/* 777 -R
 COPY Aurora.desktop /config/Desktop/Aurora.desktop
