@@ -5,7 +5,6 @@ services:
         volumes:
             - /dev/shm:/dev/shm
             - /volume1/aurora4x/saves/${saveslot}/AuroraDB.db:/root/AuroraDB.db # use variable saveslot to change active save
-            - /volume1/aurora4x/config:/config
         ports:
           - 6000:3000 # HTTP
           - 6443:3001 # HTTPS
