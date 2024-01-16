@@ -11,7 +11,7 @@ A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible
 ## Install Prebuilt Docker Image
 
 ```shell
-docker pull ghcr.io/firefly2442/aurora4x-docker:latest
+docker pull ghcr.io/supernovaxts/aurora4x-docker:latest
 ```
 
 Images are hosted on [Github Container Registry](https://github.com/firefly2442/aurora4x-docker/pkgs/container/aurora4x-docker).
@@ -19,7 +19,7 @@ Images are hosted on [Github Container Registry](https://github.com/firefly2442/
 ## Building From Scratch
 
 ```shell
-docker build . -t ghcr.io/firefly2442/aurora4x-docker:latest
+docker build . -t ghcr.io/supernovaxts/aurora4x-docker:latest
 ```
 
 ## Running
