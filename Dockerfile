@@ -120,12 +120,13 @@ COPY --from=builder /libgdiplus/src/.libs/libgdiplus.so.0 /config/libgdiplus.so.
 COPY --from=builder /sqlite/bin/2013/Release/bin/SQLite.Interop.dll /config/SQLite.Interop.dll
 COPY --from=builder /sqlite/bin/2013/Release/bin/libSQLite.Interop.so /config/libSQLite.Interop.so
 # copy over the Aurora files
-COPY --from=builder /aurora/ /config/
+COPY --from=builder /aurora/ /config/aurora/
 
 # setup executable launcher
 RUN mkdir /config/Desktop && \
-    echo "FONT_NAME=\"Cantarell\" FONT_SIZE=7.5 SCALEHACKX=1.0225 SCALEHACKY=1.01 LC_ALL=C MONO_IOMAP=all mono Aurora.exe" > /config/Aurora.sh && \
+    echo "FONT_NAME=\"Cantarell\" FONT_SIZE=7.5 SCALEHACKX=1.0225 SCALEHACKY=1.01 LC_ALL=C MONO_IOMAP=all mono Aurora/Aurora.exe" > /config/Aurora.sh && \
     chmod +x /config/Aurora.sh && \
     chown abc /config/Aurora.sh && \
     chmod /config/* 777 -R
 COPY Aurora.desktop /config/Desktop/Aurora.desktop
+RUN chmod 777 -R /config/aurora
