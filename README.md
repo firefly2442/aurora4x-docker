@@ -6,12 +6,18 @@ A Docker container with [Aurora4x (C#)](http://aurora2.pentarch.org/) accessible
 
 ## Prerequisites
 
-* Install [Docker](https://www.docker.com/)
+* Install [Docker](https://www.docker.com/) or [Podman](https://podman.io/docs/installation#installing-on-linux)
 
-## Install Prebuilt Docker Image
+## Install Prebuilt Image
 
 ```shell
 docker pull ghcr.io/firefly2442/aurora4x-docker:latest
+```
+
+Or
+
+```shell
+podman pull ghcr.io/firefly2442/aurora4x-docker:latest
 ```
 
 Images are hosted on [Github Container Registry](https://github.com/firefly2442/aurora4x-docker/pkgs/container/aurora4x-docker).
@@ -25,17 +31,26 @@ docker build . -t ghcr.io/firefly2442/aurora4x-docker:latest
 ## Running
 
 Use the most recent patch and find the `AuroraDB.db` file.  Place this in the sourcecode folder
-or wherever you're wanting to start it up.  Change this:
-`/home/username/src/aurora4x-docker/AuroraDB.db` in the below command to the full path to
+or wherever you're wanting to start it up.  Change `<path to your local Aurora.db>` in the below command to the full path to
 your `AuroraDB.db` file.  This will allow saving via Docker to persist on your local disk.
 
 ```shell
-docker run -p 6080:3000 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /home/username/src/aurora4x-docker/AuroraDB.db:/root/AuroraDB.db ghcr.io/firefly2442/aurora4x-docker
+docker run -p 6080:3000 --name=aurora4x-docker -v /dev/shm:/dev/shm -v /<path to your local Aurora.db>/AuroraDB.db:/config/AuroraDB.db ghcr.io/firefly2442/aurora4x-docker
 ```
 
-Open [http://localhost:6080](http://localhost:6080)
+Or
+
+```shell
+podman run -p 6080:3000 -v /dev/shm:/dev/shm -v /<path to your local Aurora.db>/AuroraDB.db:/config/AuroraDB.db aurora4x-docker
+```
+
+Open [http://localhost:6080](http://localhost:6080) in your browser.
 
 Double-click the `Aurora4x` icon on the desktop and then select execute.
+If saving the game gives you permission issues, you may need to run the game from the command line with:
+```shell
+sudo /config/Aurora.sh
+```
 
 ## Security
 
