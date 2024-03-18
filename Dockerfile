@@ -1,5 +1,5 @@
 # Use multi-stage builds, the first section compiles everything we need
-# the second sets up the final iamge
+# the second sets up the final image
 # https://docs.docker.com/develop/develop-images/multistage-build/
 
 # https://hub.docker.com/_/ubuntu/
