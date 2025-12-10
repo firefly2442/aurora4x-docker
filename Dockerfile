@@ -3,7 +3,7 @@
 # https://docs.docker.com/develop/develop-images/multistage-build/
 
 # https://hub.docker.com/_/ubuntu/
-FROM ubuntu:focal AS builder
+FROM ubuntu:noble AS builder
 
 # force tzdata to use UTC and don't prompt user
 ENV DEBIAN_FRONTEND=noninteractive
